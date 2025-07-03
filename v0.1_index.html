@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videoaulas - Explorar</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: #fafafa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #fff;
+            border-bottom: 1px solid #dbdbdb;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-title {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .nav-buttons button {
+            background: none;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
+            margin-left: 15px;
+            color: #262626;
+            font-weight: 600;
+        }
+
+        .nav-buttons button.active {
+            color: #0095f6; /* Cor azul do Instagram para o botão ativo */
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 colunas para o estilo explorar */
+            gap: 2px; /* Pequeno espaçamento entre as "fotos" */
+            padding: 2px; /* Padding geral para a grade */
+            flex-grow: 1; /* Faz a grade ocupar o espaço disponível */
+        }
+
+        .video-item {
+            width: 100%;
+            padding-bottom: 100%; /* Proporção 1:1 para cada item */
+            position: relative;
+            background-color: #e0e0e0; /* Cor de fundo para itens vazios */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            font-size: 0.8em;
+            text-align: center;
+        }
+
+        .video-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Garante que a imagem cubra o espaço */
+            display: block;
+        }
+
+        .video-item.placeholder::after {
+            content: "Thumbnail da Videoaula";
+        }
+
+        /* Classes para esconder/mostrar as seções */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">Explorar Videoaulas</div>
+        <div class="nav-buttons">
+            <button id="btnBuscar">Buscar</button>
+            <button id="btnAvulsas" class="active">Avulsas</button>
+            <button id="btnTrilha">Trilha</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="avulsas-section" class="video-grid">
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Aula+Avulsa+1" alt="Aula Avulsa 1"></div>
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Aula+Avulsa+2" alt="Aula Avulsa 2"></div>
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Aula+Avulsa+3" alt="Aula Avulsa 3"></div>
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Aula+Avulsa+4" alt="Aula Avulsa 4"></div>
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Aula+Avulsa+5" alt="Aula Avulsa 5"></div>
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Aula+Avulsa+6" alt="Aula Avulsa 6"></div>
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Aula+Avulsa+7" alt="Aula Avulsa 7"></div>
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Aula+Avulsa+8" alt="Aula Avulsa 8"></div>
+            <div class="video-item"><img src="https://via.placeholder.is/300x300?text=Aula+Avulsa+9" alt="Aula Avulsa 9"></div>
+        </section>
+
+        <section id="trilha-section" class="video-grid hidden">
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Trilha+Aula+1" alt="Trilha Aula 1"></div>
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Trilha+Aula+2" alt="Trilha Aula 2"></div>
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Trilha+Aula+3" alt="Trilha Aula 3"></div>
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Trilha+Aula+4" alt="Trilha Aula 4"></div>
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Trilha+Aula+5" alt="Trilha Aula 5"></div>
+            <div class="video-item"><img src="https://via.placeholder.com/300x300?text=Trilha+Aula+6" alt="Trilha Aula 6"></div>
+        </section>
+    </main>
+
+    <script>
+        const btnAvulsas = document.getElementById('btnAvulsas');
+        const btnTrilha = document.getElementById('btnTrilha');
+        const btnBuscar = document.getElementById('btnBuscar'); // Botão Buscar
+        const avulsasSection = document.getElementById('avulsas-section');
+        const trilhaSection = document.getElementById('trilha-section');
+        const navButtons = document.querySelectorAll('.nav-buttons button');
+
+        // Função para remover a classe 'active' de todos os botões
+        function deactivateAllButtons() {
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+        }
+
+        btnAvulsas.addEventListener('click', () => {
+            deactivateAllButtons();
+            btnAvulsas.classList.add('active');
+            avulsasSection.classList.remove('hidden');
+            trilhaSection.classList.add('hidden');
+        });
+
+        btnTrilha.addEventListener('click', () => {
+            deactivateAllButtons();
+            btnTrilha.classList.add('active');
+            avulsasSection.classList.add('hidden');
+            trilhaSection.classList.remove('hidden');
+        });
+
+        btnBuscar.addEventListener('click', () => {
+            // Por enquanto, o botão Buscar não fará nada além de ficar ativo.
+            // Aqui você adicionaria a lógica para abrir um campo de busca ou redirecionar.
+            deactivateAllButtons();
+            btnBuscar.classList.add('active');
+            // Você pode optar por esconder as outras seções ou não, dependendo de como a busca funcionaria.
+            avulsasSection.classList.add('hidden');
+            trilhaSection.classList.add('hidden');
+            alert('Funcionalidade de Busca ainda não implementada!');
+        });
+
+        // Inicializa a tela com as videoaulas avulsas ativas
+        document.addEventListener('DOMContentLoaded', () => {
+            btnAvulsas.click();
+        });
+    </script>
+
+</body>
+</html>
