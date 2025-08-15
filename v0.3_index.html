@@ -8,6 +8,16 @@
     <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"></script>
     
     <style>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videoaulas - Explorar</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"></script>
+    
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * {
@@ -388,126 +398,134 @@
             transform: translateY(-2px);
         }
 
-        /* --- Estilos da Tela de Login (Nova seção) --- */
-.login-screen-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-}
+        /* --- Estilos da Tela de Login (CENTRALIZADA) --- */
+        .login-screen-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            z-index: 2000;
+        }
 
-.login-screen-container.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
+        .login-screen-container.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
 
-.login-card {
-    background: #1a1a2e;
-    border-radius: 15px;
-    padding: 30px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
+        .login-card {
+            background: #1a1a2e;
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: scale(1);
+            animation: loginCardAppear 0.3s ease-out;
+        }
 
-.close-button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.5em;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
+        @keyframes loginCardAppear {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
 
-.close-button:hover {
-    transform: rotate(90deg);
-}
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
 
-.login-card h2 {
-    font-size: 2em;
-    margin-bottom: 25px;
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+        .close-button:hover {
+            transform: rotate(90deg);
+        }
 
-.login-card input {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 15px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: #fff;
-    font-size: 1em;
-    transition: all 0.3s ease;
-}
+        .login-card h2 {
+            font-size: 2em;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-.login-card input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
+        .login-card input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
 
-.login-card input:focus {
-    outline: none;
-    border-color: #4ecdc4;
-    box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
-}
+        .login-card input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
 
-.login-button {
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(45deg, #4ecdc4, #45b7d1);
-    border: none;
-    border-radius: 8px;
-    color: #0a0a0a;
-    font-size: 1.1em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+        .login-card input:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
 
-.login-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(69, 183, 209, 0.4);
-}
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            border: none;
+            border-radius: 8px;
+            color: #0a0a0a;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-.login-card p {
-    font-size: 0.9em;
-    margin-top: 15px;
-    color: rgba(255, 255, 255, 0.7);
-}
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(69, 183, 209, 0.4);
+        }
 
-.login-card a {
-    color: #4ecdc4;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
+        .login-card p {
+            font-size: 0.9em;
+            margin-top: 15px;
+            color: rgba(255, 255, 255, 0.7);
+        }
 
-.login-card a:hover {
-    color: #ff6b6b;
-    text-decoration: underline;
-}
+        .login-card a {
+            color: #4ecdc4;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
-.hidden {
-    display: none;
-}
-
+        .login-card a:hover {
+            color: #ff6b6b;
+            text-decoration: underline;
+        }
 
         @media (max-width: 768px) {
             .video-grid {
@@ -686,7 +704,7 @@
     
     <section id="login-screen" class="login-screen-container hidden">
         <div class="login-card">
-            <button class="close-button" onclick="closeLoginScreen()">✕</button>
+            <button class="close-button"  id="close-button">✕</button>
             <h2>Entrar</h2>
             <input type="email" id="login-email" placeholder="E-mail">
             <input type="password" id="login-password" placeholder="Senha">
@@ -699,7 +717,7 @@
 
     <section id="signup-screen" class="login-screen-container hidden">
         <div class="login-card">
-            <button class="close-button" onclick="closeSignupScreen()">✕</button>
+            <button class="close-button" id="close-button">✕</button>
             <h2>Cadastre-se</h2>
             <input type="email" id="signup-email" placeholder="E-mail">
             <input type="password" id="signup-password" placeholder="Senha">
@@ -744,101 +762,97 @@
         });
         
         // 1. Inicialize o cliente do Appwrite
-const client = new Appwrite.Client();
+        const client = new Appwrite.Client();
 
-client
-    .setEndpoint('https://nyc.cloud.appwrite.io/v1') // Substitua pelo seu endpoint
-    .setProject('YOUR_PROJECT_ID'); // Substitua pelo seu Project ID
+        client
+            .setEndpoint('https://nyc.cloud.appwrite.io/v1') // Substitua pelo seu endpoint
+            .setProject('YOUR_PROJECT_ID'); // Substitua pelo seu Project ID
 
-const account = new Appwrite.Account(client);
+        const account = new Appwrite.Account(client);
 
-// Elementos
-const loginScreen = document.getElementById('login-screen');
-const signupScreen = document.getElementById('signup-screen');
-const loginEmailInput = document.getElementById('login-email');
-const loginPasswordInput = document.getElementById('login-password');
-const signupEmailInput = document.getElementById('signup-email');
-const signupPasswordInput = document.getElementById('signup-password');
-const linkToSignup = document.getElementById('link-to-signup');
-const linkToLogin = document.getElementById('link-to-login');
+        // Elementos
+        const loginScreen = document.getElementById('login-screen');
+        const signupScreen = document.getElementById('signup-screen');
+        const loginEmailInput = document.getElementById('login-email');
+        const loginPasswordInput = document.getElementById('login-password');
+        const signupEmailInput = document.getElementById('signup-email');
+        const signupPasswordInput = document.getElementById('signup-password');
+        const linkToSignup = document.getElementById('link-to-signup');
+        const linkToLogin = document.getElementById('link-to-login');
 
-// Listeners de navegação entre telas de autenticação
-document.querySelector('.btnLogin').addEventListener('click', () => showLoginScreen());
-document.querySelector('.btnSignup').addEventListener('click', () => showSignupScreen());
-linkToSignup.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSignupScreen();
-});
-linkToLogin.addEventListener('click', (e) => {
-    e.preventDefault();
-    showLoginScreen();
-});
+        // Listeners de navegação entre telas de autenticação
+        document.querySelector('.btnLogin').addEventListener('click', () => showLoginScreen());
+        document.querySelector('.btnSignup').addEventListener('click', () => showSignupScreen());
+        document.querySelector('.close-button').addEventListener('click', () => closeLoginScreen());
+        
+        linkToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            showSignupScreen();
+        });
+        linkToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            showLoginScreen();
+        });
 
-function showLoginScreen() {
-    // Ocultar todas as seções da tela
-    hideAllSections();
-    
-    // Mostrar a tela de login
-    loginScreen.classList.remove('hidden');
-    signupScreen.classList.add('hidden');
-}
+        function showLoginScreen() {
+            // Ocultar todas as seções da tela
+            hideAllSections();
 
-function closeLoginScreen() {
-    loginScreen.classList.add('hidden');
-}
+            // Mostrar a tela de login
+            loginScreen.classList.remove('hidden');
+            signupScreen.classList.add('hidden');
+        }
 
-function showSignupScreen() {
-    // Ocultar todas as seções da tela
-    hideAllSections();
-    
-    // Mostrar a tela de cadastro
-    signupScreen.classList.remove('hidden');
-    loginScreen.classList.add('hidden');
-}
+        function showSignupScreen() {
+            // Ocultar todas as seções da tela
+            hideAllSections();
 
-function closeSignupScreen() {
-    signupScreen.classList.add('hidden');
-}
+            // Mostrar a tela de cadastro
+            signupScreen.classList.remove('hidden');
+            loginScreen.classList.add('hidden');
+        }
 
-async function login() {
-    const email = loginEmailInput.value;
-    const password = loginPasswordInput.value;
+        function closeLoginScreen() {
+        }
 
-    if (!email || !password) {
-        alert('Por favor, preencha todos os campos.');
-        return;
-    }
+        async function login() {
+            const email = loginEmailInput.value;
+            const password = loginPasswordInput.value;
 
-    try {
-        await account.createEmailSession(email, password);
-        alert('Login bem-sucedido!');
-        closeLoginScreen();
-        // Redirecionar para a página principal ou atualizar a interface do usuário
-        // window.location.href = '/dashboard';
-    } catch (error) {
-        alert('Erro ao fazer login: ' + error.message);
-    }
-}
+            if (!email || !password) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
 
-async function signup() {
-    const email = signupEmailInput.value;
-    const password = signupPasswordInput.value;
+            try {
+                await account.createEmailSession(email, password);
+                alert('Login bem-sucedido!');
+                closeLoginScreen();
+                // Redirecionar para a página principal ou atualizar a interface do usuário
+                // window.location.href = '/dashboard';
+            } catch (error) {
+                alert('Erro ao fazer login: ' + error.message);
+            }
+        }
 
-    if (!email || !password) {
-        alert('Por favor, preencha todos os campos.');
-        return;
-    }
+        async function signup() {
+            const email = signupEmailInput.value;
+            const password = signupPasswordInput.value;
 
-    try {
-        await account.create(Appwrite.ID.unique(), email, password);
-        alert('Conta criada com sucesso! Faça login para continuar.');
-        showLoginScreen(); // Volta para a tela de login
-    } catch (error) {
-        alert('Erro ao cadastrar: ' + error.message);
-    }
-}
-		// Funçoes Primarias
-		// Funçoes Primarias
+            if (!email || !password) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            try {
+                await account.create(Appwrite.ID.unique(), email, password);
+                alert('Conta criada com sucesso! Faça login para continuar.');
+                showLoginScreen(); // Volta para a tela de login
+            } catch (error) {
+                alert('Erro ao cadastrar: ' + error.message);
+            }
+        }
+        
 		// Funçoes Primarias
         function deactivateAllButtons() {
             navButtons.forEach(button => {
