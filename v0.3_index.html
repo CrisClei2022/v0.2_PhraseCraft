@@ -471,7 +471,7 @@
         }
 
         .login-card input {
-            width: 100%;
+            width: 90%;
             padding: 15px;
             margin-bottom: 15px;
             background: rgba(255, 255, 255, 0.1);
@@ -493,7 +493,7 @@
         }
 
         .login-button {
-            width: 100%;
+            width: 50%;
             padding: 15px;
             background: linear-gradient(45deg, #4ecdc4, #45b7d1);
             border: none;
@@ -704,7 +704,7 @@
     
     <section id="login-screen" class="login-screen-container hidden">
         <div class="login-card">
-            <button class="close-button"  id="close-button">✕</button>
+            <button class="close-button"  id="btnCloseLogin">✕</button>
             <h2>Entrar</h2>
             <input type="email" id="login-email" placeholder="E-mail">
             <input type="password" id="login-password" placeholder="Senha">
@@ -717,7 +717,7 @@
 
     <section id="signup-screen" class="login-screen-container hidden">
         <div class="login-card">
-            <button class="close-button" id="close-button">✕</button>
+            <button class="close-button"  id="btnCloseSignup">✕</button>
             <h2>Cadastre-se</h2>
             <input type="email" id="signup-email" placeholder="E-mail">
             <input type="password" id="signup-password" placeholder="Senha">
@@ -770,88 +770,93 @@
 
         const account = new Appwrite.Account(client);
 
-        // Elementos
-        const loginScreen = document.getElementById('login-screen');
-        const signupScreen = document.getElementById('signup-screen');
-        const loginEmailInput = document.getElementById('login-email');
-        const loginPasswordInput = document.getElementById('login-password');
-        const signupEmailInput = document.getElementById('signup-email');
-        const signupPasswordInput = document.getElementById('signup-password');
-        const linkToSignup = document.getElementById('link-to-signup');
-        const linkToLogin = document.getElementById('link-to-login');
+// Elementos
+const loginScreen = document.getElementById('login-screen');
+const signupScreen = document.getElementById('signup-screen');
+const loginEmailInput = document.getElementById('login-email');
+const loginPasswordInput = document.getElementById('login-password');
+const signupEmailInput = document.getElementById('signup-email');
+const signupPasswordInput = document.getElementById('signup-password');
+const linkToSignup = document.getElementById('link-to-signup');
+const linkToLogin = document.getElementById('link-to-login');
 
-        // Listeners de navegação entre telas de autenticação
-        document.querySelector('.btnLogin').addEventListener('click', () => showLoginScreen());
-        document.querySelector('.btnSignup').addEventListener('click', () => showSignupScreen());
-        document.querySelector('.close-button').addEventListener('click', () => closeLoginScreen());
-        
-        linkToSignup.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSignupScreen();
-        });
-        linkToLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            showLoginScreen();
-        });
+// Listeners dos botões de fechar (X)
+const btnCloseLogin = document.getElementById('btnCloseLogin');
+const btnCloseSignup = document.getElementById('btnCloseSignup');
 
-        function showLoginScreen() {
-            // Ocultar todas as seções da tela
-            hideAllSections();
+// Event listeners para abrir as telas de autenticação
+document.querySelector('.btnLogin').addEventListener('click', () => showLoginScreen());
+document.querySelector('.btnSignup').addEventListener('click', () => showSignupScreen());
 
-            // Mostrar a tela de login
-            loginScreen.classList.remove('hidden');
-            signupScreen.classList.add('hidden');
-        }
+// Event listeners para fechar as telas de autenticação
+btnCloseLogin.addEventListener('click', () => closeLoginScreen());
+btnCloseSignup.addEventListener('click', () => closeSignupScreen());
 
-        function showSignupScreen() {
-            // Ocultar todas as seções da tela
-            hideAllSections();
+// Event listeners para navegação entre telas de login/cadastro
+linkToSignup.addEventListener('click', (e) => {
+    e.preventDefault();
+    showSignupScreen();
+});
+linkToLogin.addEventListener('click', (e) => {
+    e.preventDefault();
+    showLoginScreen();
+});
 
-            // Mostrar a tela de cadastro
-            signupScreen.classList.remove('hidden');
-            loginScreen.classList.add('hidden');
-        }
+// Funções para mostrar/ocultar as telas de autenticação
+function showLoginScreen() {
+    loginScreen.classList.remove('hidden');
+    signupScreen.classList.add('hidden');
+}
 
-        function closeLoginScreen() {
-        }
+function closeLoginScreen() {
+    loginScreen.classList.add('hidden');
+}
 
-        async function login() {
-            const email = loginEmailInput.value;
-            const password = loginPasswordInput.value;
+function showSignupScreen() {
+    loginScreen.classList.add('hidden');
+    signupScreen.classList.remove('hidden');
+}
 
-            if (!email || !password) {
-                alert('Por favor, preencha todos os campos.');
-                return;
-            }
+function closeSignupScreen() {
+    signupScreen.classList.add('hidden');
+}
 
-            try {
-                await account.createEmailSession(email, password);
-                alert('Login bem-sucedido!');
-                closeLoginScreen();
-                // Redirecionar para a página principal ou atualizar a interface do usuário
-                // window.location.href = '/dashboard';
-            } catch (error) {
-                alert('Erro ao fazer login: ' + error.message);
-            }
-        }
+async function login() {
+    const email = loginEmailInput.value;
+    const password = loginPasswordInput.value;
 
-        async function signup() {
-            const email = signupEmailInput.value;
-            const password = signupPasswordInput.value;
+    if (!email || !password) {
+        alert('Por favor, preencha todos os campos.');
+        return;
+    }
 
-            if (!email || !password) {
-                alert('Por favor, preencha todos os campos.');
-                return;
-            }
+    try {
+        await account.createEmailSession(email, password);
+        alert('Login bem-sucedido!');
+        isLoggedIn = true; // Atualiza o estado de login
+        closeLoginScreen();
+    } catch (error) {
+        alert('Erro ao fazer login: ' + error.message);
+    }
+}
 
-            try {
-                await account.create(Appwrite.ID.unique(), email, password);
-                alert('Conta criada com sucesso! Faça login para continuar.');
-                showLoginScreen(); // Volta para a tela de login
-            } catch (error) {
-                alert('Erro ao cadastrar: ' + error.message);
-            }
-        }
+async function signup() {
+    const email = signupEmailInput.value;
+    const password = signupPasswordInput.value;
+
+    if (!email || !password) {
+        alert('Por favor, preencha todos os campos.');
+        return;
+    }
+
+    try {
+        await account.create(Appwrite.ID.unique(), email, password);
+        alert('Conta criada com sucesso! Faça login para continuar.');
+        showLoginScreen();
+    } catch (error) {
+        alert('Erro ao cadastrar: ' + error.message);
+    }
+}
         
 		// Funçoes Primarias
         function deactivateAllButtons() {
@@ -1129,6 +1134,8 @@
             btnAvulsas.classList.add('active');
             hideAllSections();
             avulsasSection.classList.remove('hidden');
+            loginScreen.classList.add('hidden');
+            signupScreen.classList.add('hidden');
         });
     
         btnTrilha.addEventListener('click', () => {
@@ -1137,6 +1144,8 @@
             btnTrilha.classList.add('active');
             hideAllSections();
             trilhaSection.classList.remove('hidden');
+            loginScreen.classList.add('hidden');
+            signupScreen.classList.add('hidden');
         });
     
         btnBuscar.addEventListener('click', () => {
